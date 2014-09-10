@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Lonely Planet</title>
+    <link href="static/all.css" media="screen" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+        <div id="logo"></div>
+        <h1>Lonely Planet: {{ NavigationCurrentName }}</h1>
+    </div>
+
+    <div id="wrapper">
+        <div id="sidebar">
+            <div class="block">
+                <h3>Navigation</h3>
+                <div class="content">
+                    <div class="inner">
+                        <h4><a href="{{ NavigationParentID }}.html">{{ NavigationParentName }}</a></h4>
+                        <h5><a href="{{ NavigationCurrentID }}.html">{{ NavigationCurrentName }}</a></h5>
+                        {% for item in NavigationChildren %}
+                            <h6><a href="{{ item.id }}.html">{{ item.name }}</a></h6>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="block">
+                <div class="secondary-navigation">
+                    <ul id="secondary-navigation-menu">
+                        {% for item in Secondary %}
+                            <h3><li class="first"><a href="#{{ item.href }}">{{ item.title }}</a></li></h3>
+                        {% endfor %}
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="content">
+                    <div class="inner">
+                        {% autoescape %}
+                            {% for item in Content %}
+                                <div id="{{ item.href }}"><h3>{{ item.title }}</h3>
+                                    {{ item.content |raw }}
+                                </div>
+                            {% endfor %}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
